@@ -1,0 +1,28 @@
+{
+  "name": "Xodija Fashion House",
+  "short_name": "Xodija FH",
+  "description": "Professional tikuvchi dizayner. 10 yillik tajriba. Xiva, Xorazm.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fffafb",
+  "theme_color": "#E91E8C",
+  "lang": "uz",
+  "dir": "ltr",
+  "categories": ["lifestyle", "shopping", "fashion"],
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

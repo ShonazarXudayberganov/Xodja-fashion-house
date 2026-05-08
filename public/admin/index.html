@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#E91E8C" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Admin Panel — Xodija Fashion House</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23E91E8C'/%3E%3Cstop offset='100%25' stop-color='%23C9A96E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='68' font-family='serif' font-size='52' font-weight='700' fill='white' text-anchor='middle'%3EXH%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+<div class="admin-layout">
+  <!-- ============== SIDEBAR ============== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div class="mark">XH</div>
+      <div class="text">Xodija<small>Admin Panel</small></div>
+    </div>
+    <nav id="sidebarNav">
+      <a href="#dashboard" data-view="dashboard"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+      <a href="#brand" data-view="brand"><i class="fa-solid fa-id-card"></i> Brand & Kontakt</a>
+      <a href="#seo" data-view="seo"><i class="fa-solid fa-magnifying-glass-chart"></i> SEO / Meta</a>
+      <a href="#hero" data-view="hero"><i class="fa-solid fa-image"></i> Hero</a>
+      <a href="#about" data-view="about"><i class="fa-solid fa-circle-info"></i> About</a>
+      <a href="#marquee" data-view="marquee"><i class="fa-solid fa-bars-staggered"></i> Marquee</a>
+      <a href="#categories" data-view="categories"><i class="fa-solid fa-tags"></i> Kategoriyalar</a>
+      <a href="#products" data-view="products"><i class="fa-solid fa-shirt"></i> Mahsulotlar</a>
+      <a href="#testimonials" data-view="testimonials"><i class="fa-solid fa-comments"></i> Sharhlar</a>
+      <a href="#orders" data-view="orders"><i class="fa-solid fa-bag-shopping"></i> Buyurtmalar</a>
+      <a href="#account" data-view="account"><i class="fa-solid fa-user-gear"></i> Sozlamalar</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Saytga o'tish</a>
+      <a href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Chiqish</a>
+    </div>
+  </aside>
+
+  <!-- ============== MAIN ============== -->
+  <main class="main">
+    <div class="main-header">
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
+      <div>
+        <h1 id="viewTitle">Dashboard</h1>
+        <div class="subtitle" id="viewSubtitle">Saytning umumiy holatini kuzating</div>
+      </div>
+    </div>
+
+    <!-- ============== DASHBOARD ============== -->
+    <section class="view active" data-view="dashboard">
+      <div class="stats-grid" id="dashStats">
+        <div class="stat-card"><div class="icon"><i class="fa-solid fa-shirt"></i></div><div><div class="num" id="statProducts">—</div><div class="lbl">Mahsulotlar</div></div></div>
+        <div class="stat-card"><div class="icon"><i class="fa-solid fa-image"></i></div><div><div class="num" id="statSlides">—</div><div class="lbl">Hero slaydlar</div></div></div>
+        <div class="stat-card"><div class="icon"><i class="fa-solid fa-comments"></i></div><div><div class="num" id="statTestimonials">—</div><div class="lbl">Sharhlar</div></div></div>
+        <div class="stat-card"><div class="icon"><i class="fa-solid fa-bag-shopping"></i></div><div><div class="num" id="statOrders">—</div><div class="lbl">Buyurtmalar</div></div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">So'nggi buyurtmalar</div>
+        <div class="card-sub">Eng yangi 5 ta buyurtma</div>
+        <div id="recentOrders"></div>
+      </div>
+    </section>
+
+    <!-- ============== BRAND ============== -->
+    <section class="view" data-view="brand">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> Bu yerda nima boshqariladi?</h3>
+          <p><strong>Brand</strong> — saytning <strong>logo qismi</strong> (yuqori chap burchakdagi va pastki qismdagi). <strong>Kontaktlar</strong> — saytning <strong>barcha joyidagi</strong> telefon, Telegram, Instagram havolalari (yuqori menyu, footer, suzuvchi tugmalar va buyurtma forma).</p>
+          <div class="help-actions">
+            <a href="/" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i> Saytda ko'rish</a>
+          </div>
+        </div>
+        <div class="site-map">
+          <div class="map-section active"><i class="fa-solid fa-bars"></i> Yuqori menyu (logo)</div>
+          <div class="map-section"><i class="fa-solid fa-image"></i> Hero</div>
+          <div class="map-section"><i class="fa-solid fa-bars-staggered"></i> Pushti lenta</div>
+          <div class="map-section"><i class="fa-solid fa-circle-info"></i> Biz haqimizda</div>
+          <div class="map-section"><i class="fa-solid fa-shirt"></i> Katalog</div>
+          <div class="map-section"><i class="fa-solid fa-comments"></i> Sharhlar</div>
+          <div class="map-section"><i class="fa-solid fa-bag-shopping"></i> Buyurtma</div>
+          <div class="map-section active"><i class="fa-solid fa-grip"></i> Pastki qism (kontaktlar)</div>
+        </div>
+      </div>
+
+      <form class="card" id="brandForm">
+        <div class="card-title">Brand nomi va logo</div>
+        <div class="card-sub">Saytning yuqori chap burchagidagi va pastki qismidagi logo</div>
+        <div class="form-row">
+          <div class="field"><label>To'liq nomi</label><input name="brand.name" /><div class="field-hint">Misol: <span class="field-example">Xodija Fashion House</span></div></div>
+          <div class="field"><label>Logoda qisqa nom</label><input name="brand.short" placeholder="Xodija" /><div class="field-hint">Logoda yirik shrift bilan ko'rinadi. Misol: <span class="field-example">Xodija</span></div></div>
+          <div class="field"><label>Logo ostidagi yozuv</label><input name="brand.fashion_text" placeholder="Fashion House" /><div class="field-hint">Logo ostidagi kichik yozuv. Misol: <span class="field-example">Fashion House</span></div></div>
+          <div class="field"><label>Logo ikonkadagi harflar</label><input name="brand.logo_mark" placeholder="XH" maxlength="3" /><div class="field-hint">Logoning pushti kvadratchasi ichida. Misol: <span class="field-example">XH</span></div></div>
+        </div>
+        <div class="btn-bar"><button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button></div>
+      </form>
+
+      <form class="card" id="contactsForm">
+        <div class="card-title">Aloqa ma'lumotlari</div>
+        <div class="card-sub">Saytdagi barcha kontakt linklari (footer, suzuvchi tugmalar, buyurtma tugmalar)</div>
+        <div class="form-row">
+          <div class="field"><label>Telefon raqam</label><input name="contacts.phone" placeholder="+998887717974" /><div class="field-hint">Bo'shliqsiz. Misol: <span class="field-example">+998887717974</span></div></div>
+          <div class="field"><label>Telefon (chiroyli ko'rinish)</label><input name="contacts.phone_display" placeholder="+998 88 771 79 74" /><div class="field-hint">Saytda shu ko'rsatiladi. Misol: <span class="field-example">+998 88 771 79 74</span></div></div>
+          <div class="field"><label>Telegram username</label><input name="contacts.telegram_username" placeholder="xodija_fashion" /><div class="field-hint">@ <strong>siz</strong> yozing. Saytdagi barcha "Buyurtma" tugmalari shu profilga olib boradi.</div></div>
+          <div class="field"><label>Instagram username</label><input name="contacts.instagram_username" placeholder="xodija_fashion_house" /><div class="field-hint">@ <strong>siz</strong> yozing</div></div>
+          <div class="field full"><label>WhatsApp raqam</label><input name="contacts.whatsapp" placeholder="998887717974" /><div class="field-hint"><strong>+ belgisi va bo'shliqsiz</strong>. Misol: <span class="field-example">998887717974</span></div></div>
+        </div>
+        <div class="card-title" style="margin-top:24px;">Telegram Bot (buyurtma formani avtomatlashtirish)</div>
+        <div class="card-sub">Foydalanuvchi formani to'ldirib yuborganda bu botga avtomatik xabar keladi. <strong>To'ldirilmagan bo'lsa,</strong> forma faqat Telegram'ga link sifatida ochiladi.<br>1) <a href="https://t.me/BotFather" target="_blank" style="color:var(--pink);font-weight:600;">@BotFather</a>'dan bot yarating, token oling. 2) <a href="https://t.me/userinfobot" target="_blank" style="color:var(--pink);font-weight:600;">@userinfobot</a>'dan o'z chat ID'ngizni oling.</div>
+        <div class="form-row">
+          <div class="field"><label>Bot Token</label><input name="contacts.bot_token" placeholder="123456:AAH..." autocomplete="off" /><div class="field-hint">@BotFather bergan token</div></div>
+          <div class="field"><label>Chat ID (sizning ID)</label><input name="contacts.bot_chat_id" placeholder="987654321" autocomplete="off" /><div class="field-hint">@userinfobot bergan raqam</div></div>
+        </div>
+        <div id="botStatus" style="margin-top:14px;"></div>
+        <div class="btn-bar">
+          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button>
+          <button type="button" class="btn btn-outline" id="testBotBtn"><i class="fa-brands fa-telegram"></i> Bot ulanishini tekshirish</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============== SEO ============== -->
+    <section class="view" data-view="seo">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> SEO/Meta — bu nima?</h3>
+          <p><strong>Saytning o'zida ko'rinmaydi</strong>, lekin juda muhim. Bu ma'lumotlar:<br>
+          • <strong>Google'da</strong> sayt qanday ko'rinishini (sarlavha + tavsif)<br>
+          • <strong>Brauzer tabida</strong> qanday yozuv chiqishini<br>
+          • <strong>Telegram, Instagram</strong> linki tashlaganda preview rasm va matnni belgilaydi</p>
+        </div>
+        <div class="site-map">
+          <div class="map-section"><i class="fa-solid fa-globe"></i> Google qidiruvi</div>
+          <div class="map-section"><i class="fa-brands fa-telegram"></i> Telegram preview</div>
+          <div class="map-section"><i class="fa-brands fa-facebook"></i> FB/Instagram</div>
+          <div class="map-section"><i class="fa-solid fa-window-maximize"></i> Brauzer tabi</div>
+        </div>
+      </div>
+      <form class="card" id="seoForm">
+        <div class="form-row cols-1">
+          <div class="field"><label>Sayt sarlavhasi</label><input name="meta.title" /><div class="field-hint">Brauzer tabida va Google qidiruvda chiqadi. Misol: <span class="field-example">Xodija Fashion House — Elegantlik va Mahorat</span></div></div>
+          <div class="field"><label>Sayt tavsifi <span class="lang">UZ</span></label><textarea name="meta.description_uz" rows="2"></textarea><div class="field-hint">Google qidiruvda sarlavha ostidagi 1-2 jumla. <strong>150-160 belgidan oshmasin.</strong></div></div>
+          <div class="field"><label>Sayt tavsifi <span class="lang">RU</span></label><textarea name="meta.description_ru" rows="2"></textarea></div>
+          <div class="field"><label>Kalit so'zlar</label><input name="meta.keywords" /><div class="field-hint">Vergul bilan ajrating. Misol: <span class="field-example">tikuvchi, dizayner, Xiva, oqshom libos</span></div></div>
+          <div class="field"><label>Mobil brauzer rangi</label><input name="meta.theme_color" type="color" /><div class="field-hint">Telefon brauzeridagi yuqori panel rangi (Chrome, Safari)</div></div>
+          <div class="field"><label>Sotsial preview rasmi</label><input name="meta.og_image" placeholder="images/example.jpg" /><div class="field-hint">Telegram/Facebook'ga link tashlaganda chiqadigan rasm. Misol: <span class="field-example">images/dress-pink-floral.jpg</span></div></div>
+        </div>
+        <div class="btn-bar"><button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button></div>
+      </form>
+    </section>
+
+    <!-- ============== HERO ============== -->
+    <section class="view" data-view="hero">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> Hero — bu nima va qayerda ko'rinadi?</h3>
+          <p><strong>Hero</strong> — saytni ochganda <strong>eng birinchi ko'rinadigan</strong> katta ekran. Chap tomonda yozuvlar va tugmalar, o'ng tomonda rasmlar slayderi turadi. Mijoz sayt nima haqida ekanligini shu yerdan tushunadi.</p>
+          <div class="help-actions">
+            <a href="/#hero" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i> Saytda ko'rish</a>
+          </div>
+        </div>
+        <div class="site-map">
+          <div class="map-section"><i class="fa-solid fa-bars"></i> Yuqori menyu</div>
+          <div class="map-section active"><i class="fa-solid fa-image"></i> Hero</div>
+          <div class="map-section"><i class="fa-solid fa-bars-staggered"></i> Pushti lenta</div>
+          <div class="map-section"><i class="fa-solid fa-circle-info"></i> Biz haqimizda</div>
+          <div class="map-section"><i class="fa-solid fa-shirt"></i> Katalog</div>
+          <div class="map-section"><i class="fa-solid fa-comments"></i> Sharhlar</div>
+          <div class="map-section"><i class="fa-solid fa-bag-shopping"></i> Buyurtma</div>
+          <div class="map-section"><i class="fa-solid fa-grip"></i> Pastki qism</div>
+        </div>
+      </div>
+
+      <form class="card" id="heroForm">
+        <div class="card-title">Asosiy yozuvlar</div>
+        <div class="card-sub">Hero ekranining chap tomonidagi matnlar</div>
+
+        <div class="form-row">
+          <div class="field full">
+            <label>Tepa yozuvcha <span class="lang">UZ</span></label>
+            <input name="hero.eyebrow_uz" />
+            <div class="field-hint">Sarlavha <strong>tepasidagi kichik yozuv</strong>. Misol: <span class="field-example">✨ Premium Fashion House</span></div>
+          </div>
+          <div class="field full">
+            <label>Tepa yozuvcha <span class="lang">RU</span></label>
+            <input name="hero.eyebrow_ru" />
+          </div>
+
+          <div class="field">
+            <label>Sarlavha (asosiy qism)</label>
+            <input name="hero.title" />
+            <div class="field-hint">Katta sarlavhaning <strong>oddiy rangli</strong> birinchi qismi. Misol: <span class="field-example">Xodija</span></div>
+          </div>
+          <div class="field">
+            <label>Sarlavha (rangli qism)</label>
+            <input name="hero.title_accent" />
+            <div class="field-hint"><strong>Pushti rangda</strong> kursiv ko'rinadigan qism. Misol: <span class="field-example">Fashion House</span></div>
+          </div>
+
+          <div class="field full">
+            <label>Tasvir matni <span class="lang">UZ</span></label>
+            <textarea name="hero.subtitle_uz" rows="2"></textarea>
+            <div class="field-hint">Sarlavha ostidagi <strong>kichik tasvirlovchi matn</strong>. Misol: <span class="field-example">Tikuvchi dizayner • 10 yillik tajriba • Xiva, Xorazm.</span></div>
+          </div>
+          <div class="field full">
+            <label>Tasvir matni <span class="lang">RU</span></label>
+            <textarea name="hero.subtitle_ru" rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="card-title" style="margin-top:24px;">Asosiy tugmalar</div>
+        <div class="card-sub">Tasvir matni ostidagi 2 ta tugma</div>
+        <div class="form-row">
+          <div class="field"><label>Birinchi tugma matni <span class="lang">UZ</span></label><input name="hero.cta1_text_uz" /><div class="field-hint">Pushti tugma. Misol: <span class="field-example">Katalogni ko'rish</span></div></div>
+          <div class="field"><label>Birinchi tugma matni <span class="lang">RU</span></label><input name="hero.cta1_text_ru" /></div>
+          <div class="field full"><label>Birinchi tugma havolasi</label><input name="hero.cta1_link" placeholder="#catalog" /><div class="field-hint">Bosilganda qaysi bo'limga olib boradi. <span class="field-example">#catalog</span> = katalogga, <span class="field-example">#order</span> = buyurtmaga</div></div>
+
+          <div class="field"><label>Ikkinchi tugma matni <span class="lang">UZ</span></label><input name="hero.cta2_text_uz" /><div class="field-hint">Atrofi chizilgan tugma. Misol: <span class="field-example">Buyurtma berish</span></div></div>
+          <div class="field"><label>Ikkinchi tugma matni <span class="lang">RU</span></label><input name="hero.cta2_text_ru" /></div>
+          <div class="field full"><label>Ikkinchi tugma havolasi</label><input name="hero.cta2_link" placeholder="#order" /></div>
+        </div>
+
+        <div class="card-title" style="margin-top:24px;">Birinchi suzuvchi belgi (chap yuqorida, slayder ustida)</div>
+        <div class="card-sub">"910+ Mijoz" ko'rinishidagi pushti badge</div>
+        <div class="form-row cols-3">
+          <div class="field"><label>Raqam yoki belgi</label><input name="hero.badge1_value" placeholder="910+" /><div class="field-hint">Misol: <span class="field-example">910+</span></div></div>
+          <div class="field"><label>Yozuv <span class="lang">UZ</span></label><input name="hero.badge1_label_uz" /><div class="field-hint">Misol: <span class="field-example">Mijoz</span></div></div>
+          <div class="field"><label>Yozuv <span class="lang">RU</span></label><input name="hero.badge1_label_ru" /></div>
+        </div>
+
+        <div class="card-title" style="margin-top:24px;">Ikkinchi suzuvchi belgi (o'ng pastda)</div>
+        <div class="card-sub">"10 Yillik tajriba" ko'rinishidagi badge</div>
+        <div class="form-row cols-3">
+          <div class="field"><label>Raqam</label><input name="hero.badge2_value" placeholder="10" /><div class="field-hint">Misol: <span class="field-example">10</span></div></div>
+          <div class="field"><label>Yozuv <span class="lang">UZ</span></label><input name="hero.badge2_label_uz" /><div class="field-hint">Misol: <span class="field-example">Yillik tajriba</span></div></div>
+          <div class="field"><label>Yozuv <span class="lang">RU</span></label><input name="hero.badge2_label_ru" /></div>
+        </div>
+
+        <div class="card-title" style="margin-top:24px;">Slayder ustidagi yozuv</div>
+        <div class="card-sub">Slayder rasmlari pastida turadigan oq tugmadagi yozuv</div>
+        <div class="form-row">
+          <div class="field"><label>Yozuv <span class="lang">UZ</span></label><input name="hero.card_label_uz" /><div class="field-hint">Misol: <span class="field-example">Couture by Xodija</span></div></div>
+          <div class="field"><label>Yozuv <span class="lang">RU</span></label><input name="hero.card_label_ru" /></div>
+        </div>
+
+        <div class="btn-bar"><button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button></div>
+      </form>
+
+      <div class="card">
+        <div class="row-flex between">
+          <div>
+            <div class="card-title">Slayder rasmlari</div>
+            <div class="card-sub">Hero o'ng tomonida aylanib turuvchi rasmlar (4-6 ta yaxshi). 4 soniyada bittadan almashinadi.</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openSlideEditor()"><i class="fa-solid fa-plus"></i> Yangi qo'shish</button>
+        </div>
+        <div class="table-wrap" style="margin-top:18px;">
+          <table>
+            <thead><tr><th style="width:80px;">Rasm</th><th>Tasvir UZ</th><th>Tasvir RU</th><th style="width:120px;">Tartib</th><th style="width:120px;">Amal</th></tr></thead>
+            <tbody id="slidesTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ABOUT ============== -->
+    <section class="view" data-view="about">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> About — bu nima va qayerda?</h3>
+          <p><strong>"Biz haqimizda"</strong> bo'limi. Hero ostida turadigan, chap tomonda <strong>katta rasm</strong>, o'ng tomonda <strong>matn va 3 ta statistika</strong> kartochkasi (59+, 910+, 10) bo'lgan ekran.<br>Pastdagi ikkinchi forma — <strong>katalog, sharhlar, buyurtma va footer</strong>ning sarlavha matnlari.</p>
+          <div class="help-actions">
+            <a href="/#about" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i> Saytda ko'rish</a>
+          </div>
+        </div>
+        <div class="site-map">
+          <div class="map-section"><i class="fa-solid fa-bars"></i> Yuqori menyu</div>
+          <div class="map-section"><i class="fa-solid fa-image"></i> Hero</div>
+          <div class="map-section"><i class="fa-solid fa-bars-staggered"></i> Pushti lenta</div>
+          <div class="map-section active"><i class="fa-solid fa-circle-info"></i> Biz haqimizda</div>
+          <div class="map-section active"><i class="fa-solid fa-shirt"></i> Katalog (sarlavha)</div>
+          <div class="map-section active"><i class="fa-solid fa-comments"></i> Sharhlar (sarlavha)</div>
+          <div class="map-section active"><i class="fa-solid fa-bag-shopping"></i> Buyurtma (sarlavha)</div>
+          <div class="map-section active"><i class="fa-solid fa-grip"></i> Footer matni</div>
+        </div>
+      </div>
+
+      <form class="card" id="aboutForm">
+        <div class="card-title">"Biz haqimizda" bo'limi matnlari</div>
+        <div class="form-row cols-1">
+          <div class="field"><label>Eyebrow <span class="lang">UZ</span></label><input name="about.eyebrow_uz" /></div>
+          <div class="field"><label>Eyebrow <span class="lang">RU</span></label><input name="about.eyebrow_ru" /></div>
+          <div class="field"><label>Sarlavha <span class="lang">UZ</span></label><input name="about.title_uz" /></div>
+          <div class="field"><label>Sarlavha <span class="lang">RU</span></label><input name="about.title_ru" /></div>
+          <div class="field"><label>Asosiy matn <span class="lang">UZ</span></label><textarea name="about.text_uz" rows="4"></textarea></div>
+          <div class="field"><label>Asosiy matn <span class="lang">RU</span></label><textarea name="about.text_ru" rows="4"></textarea></div>
+        </div>
+        <div class="card-title" style="margin-top:20px;">Rasm</div>
+        <div class="form-row cols-1">
+          <div class="field">
+            <label>Rasm yo'li</label>
+            <div class="row-flex">
+              <input name="about.image_path" id="aboutImagePath" style="flex:1;" />
+              <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('aboutImageFile').click()"><i class="fa-solid fa-upload"></i> Yangi yuklash</button>
+              <input type="file" id="aboutImageFile" accept="image/*" style="display:none;" />
+            </div>
+            <div class="field-hint">Yoki yangi rasm yuklang — yo'l avtomatik to'ldiriladi</div>
+          </div>
+        </div>
+        <div class="card-title" style="margin-top:20px;">Sertifikat tag</div>
+        <div class="form-row">
+          <div class="field"><label>Asosiy matn <span class="lang">UZ</span></label><input name="about.badge_text_uz" /></div>
+          <div class="field"><label>Asosiy matn <span class="lang">RU</span></label><input name="about.badge_text_ru" /></div>
+          <div class="field"><label>Manzil <span class="lang">UZ</span></label><input name="about.badge_location_uz" /></div>
+          <div class="field"><label>Manzil <span class="lang">RU</span></label><input name="about.badge_location_ru" /></div>
+        </div>
+        <div class="card-title" style="margin-top:20px;">Statistikalar</div>
+        <div class="form-row cols-3">
+          <div class="field"><label>1-stat qiymati</label><input name="about.stat1_value" placeholder="59+" /></div>
+          <div class="field"><label>1-stat yozuv UZ</label><input name="about.stat1_label_uz" /></div>
+          <div class="field"><label>1-stat yozuv RU</label><input name="about.stat1_label_ru" /></div>
+          <div class="field"><label>2-stat qiymati</label><input name="about.stat2_value" placeholder="910+" /></div>
+          <div class="field"><label>2-stat yozuv UZ</label><input name="about.stat2_label_uz" /></div>
+          <div class="field"><label>2-stat yozuv RU</label><input name="about.stat2_label_ru" /></div>
+          <div class="field"><label>3-stat qiymati</label><input name="about.stat3_value" placeholder="10" /></div>
+          <div class="field"><label>3-stat yozuv UZ</label><input name="about.stat3_label_uz" /></div>
+          <div class="field"><label>3-stat yozuv RU</label><input name="about.stat3_label_ru" /></div>
+        </div>
+        <div class="btn-bar"><button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button></div>
+      </form>
+
+      <form class="card" id="sectionsForm">
+        <div class="card-title">Boshqa bo'lim sarlavhalari</div>
+        <div class="form-row">
+          <div class="field"><label>Katalog eyebrow UZ</label><input name="catalog.eyebrow_uz" /></div>
+          <div class="field"><label>Katalog eyebrow RU</label><input name="catalog.eyebrow_ru" /></div>
+          <div class="field"><label>Katalog sarlavha UZ</label><input name="catalog.title_uz" /></div>
+          <div class="field"><label>Katalog sarlavha RU</label><input name="catalog.title_ru" /></div>
+          <div class="field full"><label>Katalog subtitle UZ</label><input name="catalog.subtitle_uz" /></div>
+          <div class="field full"><label>Katalog subtitle RU</label><input name="catalog.subtitle_ru" /></div>
+          <div class="field"><label>Sharhlar eyebrow UZ</label><input name="testimonials.eyebrow_uz" /></div>
+          <div class="field"><label>Sharhlar eyebrow RU</label><input name="testimonials.eyebrow_ru" /></div>
+          <div class="field"><label>Sharhlar sarlavha UZ</label><input name="testimonials.title_uz" /></div>
+          <div class="field"><label>Sharhlar sarlavha RU</label><input name="testimonials.title_ru" /></div>
+          <div class="field full"><label>Sharhlar subtitle UZ</label><input name="testimonials.subtitle_uz" /></div>
+          <div class="field full"><label>Sharhlar subtitle RU</label><input name="testimonials.subtitle_ru" /></div>
+          <div class="field"><label>Buyurtma eyebrow UZ</label><input name="order.eyebrow_uz" /></div>
+          <div class="field"><label>Buyurtma eyebrow RU</label><input name="order.eyebrow_ru" /></div>
+          <div class="field"><label>Buyurtma sarlavha UZ</label><input name="order.title_uz" /></div>
+          <div class="field"><label>Buyurtma sarlavha RU</label><input name="order.title_ru" /></div>
+          <div class="field full"><label>Buyurtma subtitle UZ</label><input name="order.subtitle_uz" /></div>
+          <div class="field full"><label>Buyurtma subtitle RU</label><input name="order.subtitle_ru" /></div>
+          <div class="field"><label>Footer tagline UZ</label><textarea name="footer.tagline_uz" rows="2"></textarea></div>
+          <div class="field"><label>Footer tagline RU</label><textarea name="footer.tagline_ru" rows="2"></textarea></div>
+          <div class="field"><label>Copyright matni UZ</label><input name="footer.copyright_text_uz" /></div>
+          <div class="field"><label>Copyright matni RU</label><input name="footer.copyright_text_ru" /></div>
+        </div>
+        <div class="btn-bar"><button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button></div>
+      </form>
+    </section>
+
+    <!-- ============== MARQUEE ============== -->
+    <section class="view" data-view="marquee">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> Lenta — bu nima?</h3>
+          <p>Hero ostidagi <strong>pushti rangli, chap tomonga aylanib turuvchi yozuvlar</strong>. Sayt afzalliklarini qisqa-qisqa ko'rsatish uchun. Misol: "Premium Quality • 10 Yillik Tajriba • Xiva, Xorazm".<br><strong>Bir necha qisqa yozuvlar</strong> qo'shing — sayt ularni avtomatik aylantirib turadi.</p>
+          <div class="help-actions">
+            <a href="/" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i> Saytda ko'rish</a>
+          </div>
+        </div>
+        <div class="site-map">
+          <div class="map-section"><i class="fa-solid fa-bars"></i> Yuqori menyu</div>
+          <div class="map-section"><i class="fa-solid fa-image"></i> Hero</div>
+          <div class="map-section active"><i class="fa-solid fa-bars-staggered"></i> Pushti lenta</div>
+          <div class="map-section"><i class="fa-solid fa-circle-info"></i> Biz haqimizda</div>
+          <div class="map-section"><i class="fa-solid fa-shirt"></i> Katalog</div>
+          <div class="map-section"><i class="fa-solid fa-comments"></i> Sharhlar</div>
+          <div class="map-section"><i class="fa-solid fa-bag-shopping"></i> Buyurtma</div>
+          <div class="map-section"><i class="fa-solid fa-grip"></i> Pastki qism</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row-flex between">
+          <div>
+            <div class="card-title">Lenta yozuvlari</div>
+            <div class="card-sub">Hero ostidagi pushti aylanuvchi lentadagi qisqa yozuvlar</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openMarqueeEditor()"><i class="fa-solid fa-plus"></i> Qo'shish</button>
+        </div>
+        <div class="table-wrap" style="margin-top:18px;">
+          <table>
+            <thead><tr><th>Yozuv UZ</th><th>Yozuv RU</th><th style="width:120px;">Tartib</th><th style="width:120px;">Amal</th></tr></thead>
+            <tbody id="marqueeTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CATEGORIES ============== -->
+    <section class="view" data-view="categories">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> Kategoriyalar — bu nima?</h3>
+          <p>Katalog bo'limidagi <strong>"Hammasi / Oqshom liboslar / Ansabil / Kundalik"</strong> ko'rinishidagi <strong>filtr tugmalari</strong>. Mijoz mos turdagi kiyimlarni filtirlay olishi uchun. Bu kategoriyalar shuningdek <strong>buyurtma formasidagi "Kategoriya tanlang"</strong> ro'yxatida ham chiqadi.</p>
+          <div class="help-actions">
+            <a href="/#catalog" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i> Saytda ko'rish</a>
+          </div>
+        </div>
+        <div class="site-map">
+          <div class="map-section"><i class="fa-solid fa-bars"></i> Yuqori menyu</div>
+          <div class="map-section"><i class="fa-solid fa-image"></i> Hero</div>
+          <div class="map-section"><i class="fa-solid fa-bars-staggered"></i> Pushti lenta</div>
+          <div class="map-section"><i class="fa-solid fa-circle-info"></i> Biz haqimizda</div>
+          <div class="map-section active"><i class="fa-solid fa-shirt"></i> Katalog filtri</div>
+          <div class="map-section"><i class="fa-solid fa-comments"></i> Sharhlar</div>
+          <div class="map-section active"><i class="fa-solid fa-bag-shopping"></i> Buyurtma forma</div>
+          <div class="map-section"><i class="fa-solid fa-grip"></i> Pastki qism</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row-flex between">
+          <div>
+            <div class="card-title">Mahsulot kategoriyalari</div>
+            <div class="card-sub">Katalogning yuqorisidagi filtr tugmalari (3-5 ta yetarli)</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openCategoryEditor()"><i class="fa-solid fa-plus"></i> Qo'shish</button>
+        </div>
+        <div class="table-wrap" style="margin-top:18px;">
+          <table>
+            <thead><tr><th>Slug</th><th>To'liq nom UZ</th><th>To'liq nom RU</th><th>Qisqa UZ</th><th>Qisqa RU</th><th style="width:100px;">Tartib</th><th style="width:120px;">Amal</th></tr></thead>
+            <tbody id="categoriesTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== PRODUCTS ============== -->
+    <section class="view" data-view="products">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> Mahsulotlar — bu eng asosiy bo'lim!</h3>
+          <p>Bu yerda <strong>katalog kartochkalari</strong> boshqariladi. Har bir mahsulot — saytda ko'rinadigan <strong>kichik kartochka</strong> (rasm, nomi, narxi va "Buyurtma" tugmasi). <br>Bayrog'ni (badge) <strong>⭐ Top</strong>, <strong>Yangi</strong> yoki <strong>chegirma -20%</strong> qilib qo'yish mumkin. Eski mahsulotni <strong>vaqtinchalik yashirish</strong> uchun "Saytda ko'rinsin" belgisini olib tashlash mumkin.</p>
+          <div class="help-actions">
+            <a href="/#catalog" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i> Saytda ko'rish</a>
+          </div>
+        </div>
+        <div class="site-map">
+          <div class="map-section"><i class="fa-solid fa-bars"></i> Yuqori menyu</div>
+          <div class="map-section"><i class="fa-solid fa-image"></i> Hero</div>
+          <div class="map-section"><i class="fa-solid fa-bars-staggered"></i> Pushti lenta</div>
+          <div class="map-section"><i class="fa-solid fa-circle-info"></i> Biz haqimizda</div>
+          <div class="map-section active"><i class="fa-solid fa-shirt"></i> Katalog kartochkalari</div>
+          <div class="map-section"><i class="fa-solid fa-comments"></i> Sharhlar</div>
+          <div class="map-section"><i class="fa-solid fa-bag-shopping"></i> Buyurtma</div>
+          <div class="map-section"><i class="fa-solid fa-grip"></i> Pastki qism</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row-flex between">
+          <div>
+            <div class="card-title">Mahsulotlar ro'yxati</div>
+            <div class="card-sub">Saytdagi katalog kartochkalari</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openProductEditor()"><i class="fa-solid fa-plus"></i> Yangi mahsulot</button>
+        </div>
+        <div class="table-wrap" style="margin-top:18px;">
+          <table>
+            <thead><tr><th style="width:70px;">Rasm</th><th>Nom</th><th>Kategoriya</th><th>Narx</th><th>Badge</th><th>Holat</th><th style="width:100px;">Tartib</th><th style="width:120px;">Amal</th></tr></thead>
+            <tbody id="productsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== TESTIMONIALS ============== -->
+    <section class="view" data-view="testimonials">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> Sharhlar — bu nima?</h3>
+          <p>Katalog ostidagi <strong>"Mijozlar sharhlari"</strong> bo'limidagi <strong>chap tomonga sirpanib turuvchi kartochkalar</strong>. Har bir kartochkada: 5 ta yulduz, mijozning so'zi, ismi va shahri. Yangi mijozlarning ishonchini qozonish uchun foydali.</p>
+          <div class="help-actions">
+            <a href="/#testimonials" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i> Saytda ko'rish</a>
+          </div>
+        </div>
+        <div class="site-map">
+          <div class="map-section"><i class="fa-solid fa-bars"></i> Yuqori menyu</div>
+          <div class="map-section"><i class="fa-solid fa-image"></i> Hero</div>
+          <div class="map-section"><i class="fa-solid fa-bars-staggered"></i> Pushti lenta</div>
+          <div class="map-section"><i class="fa-solid fa-circle-info"></i> Biz haqimizda</div>
+          <div class="map-section"><i class="fa-solid fa-shirt"></i> Katalog</div>
+          <div class="map-section active"><i class="fa-solid fa-comments"></i> Sharhlar</div>
+          <div class="map-section"><i class="fa-solid fa-bag-shopping"></i> Buyurtma</div>
+          <div class="map-section"><i class="fa-solid fa-grip"></i> Pastki qism</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row-flex between">
+          <div>
+            <div class="card-title">Mijoz sharhlari</div>
+            <div class="card-sub">Saytdagi sirpanib turuvchi sharh kartochkalari</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="openTestimonialEditor()"><i class="fa-solid fa-plus"></i> Sharh qo'shish</button>
+        </div>
+        <div class="table-wrap" style="margin-top:18px;">
+          <table>
+            <thead><tr><th>Mijoz</th><th>Shahar</th><th>Yulduz</th><th>Matn UZ</th><th style="width:100px;">Tartib</th><th style="width:120px;">Amal</th></tr></thead>
+            <tbody id="testimonialsTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ORDERS ============== -->
+    <section class="view" data-view="orders">
+      <div class="section-help">
+        <div class="help-text">
+          <h3><i class="fa-solid fa-circle-question"></i> Buyurtmalar — qayerdan keladi?</h3>
+          <p>Saytdagi <strong>"Buyurtma bering"</strong> formani to'ldirgan har bir mijozning ma'lumoti shu yerda saqlanadi: <strong>ism, telefon, tanlangan kategoriya, izoh va sana</strong>. Telegram bot sozlangan bo'lsa, ayni vaqtda Telegramga ham xabar keladi.<br><strong>Holatni o'zgartiring:</strong> Yangi → Bog'lanildi → Tugatildi.</p>
+          <div class="help-actions">
+            <a href="/#order" target="_blank" class="btn btn-outline btn-sm"><i class="fa-solid fa-eye"></i> Saytda forma</a>
+          </div>
+        </div>
+        <div class="site-map">
+          <div class="map-section"><i class="fa-solid fa-bars"></i> Yuqori menyu</div>
+          <div class="map-section"><i class="fa-solid fa-image"></i> Hero</div>
+          <div class="map-section"><i class="fa-solid fa-bars-staggered"></i> Pushti lenta</div>
+          <div class="map-section"><i class="fa-solid fa-circle-info"></i> Biz haqimizda</div>
+          <div class="map-section"><i class="fa-solid fa-shirt"></i> Katalog</div>
+          <div class="map-section"><i class="fa-solid fa-comments"></i> Sharhlar</div>
+          <div class="map-section active"><i class="fa-solid fa-bag-shopping"></i> Buyurtma forma</div>
+          <div class="map-section"><i class="fa-solid fa-grip"></i> Pastki qism</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row-flex between">
+          <div>
+            <div class="card-title">Kelgan buyurtmalar</div>
+            <div class="card-sub">Eng yangisi yuqorida</div>
+          </div>
+          <select id="orderFilter" class="btn-sm" style="padding:8px 14px;border-radius:8px;border:1.5px solid var(--border);background:#fff;">
+            <option value="">Hammasi</option>
+            <option value="new">Yangi</option>
+            <option value="contacted">Bog'lanildi</option>
+            <option value="completed">Tugatildi</option>
+            <option value="cancelled">Bekor qilindi</option>
+          </select>
+        </div>
+        <div class="table-wrap" style="margin-top:18px;">
+          <table>
+            <thead><tr><th>#</th><th>Sana</th><th>Ism</th><th>Telefon</th><th>Kategoriya</th><th>Izoh</th><th>Holat</th><th style="width:140px;">Amal</th></tr></thead>
+            <tbody id="ordersTbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ACCOUNT ============== -->
+    <section class="view" data-view="account">
+      <form class="card" id="passwordForm">
+        <div class="card-title">Parolni o'zgartirish</div>
+        <div class="card-sub">Yangi parol kamida 6 ta belgidan iborat bo'lsin</div>
+        <div class="form-row cols-1">
+          <div class="field"><label>Hozirgi parol</label><input type="password" name="current_password" required /></div>
+          <div class="field"><label>Yangi parol</label><input type="password" name="new_password" required minlength="6" /></div>
+          <div class="field"><label>Yangi parolni takrorlang</label><input type="password" name="new_password_confirm" required minlength="6" /></div>
+        </div>
+        <div class="btn-bar"><button type="submit" class="btn btn-primary"><i class="fa-solid fa-key"></i> Parolni o'zgartirish</button></div>
+      </form>
+
+      <div class="card">
+        <div class="card-title">Backup</div>
+        <div class="card-sub">DB faylini server'dan qo'lda nusxalab oling: <code style="background:var(--pink-soft);padding:2px 6px;border-radius:4px;">server/data.db</code></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ============== EDIT MODAL ============== -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Tahrirlash</h2>
+      <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">Bekor qilish</button>
+      <button class="btn btn-primary" id="modalSave"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>

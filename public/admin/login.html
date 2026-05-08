@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#E91E8C" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Admin Login — Xodija Fashion House</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23E91E8C'/%3E%3Cstop offset='100%25' stop-color='%23C9A96E'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Ctext x='50' y='68' font-family='serif' font-size='52' font-weight='700' fill='white' text-anchor='middle'%3EXH%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="mark">XH</div>
+      <div class="text">Xodija<span>Fashion House</span></div>
+    </div>
+    <h1>Admin Panel</h1>
+    <p class="sub">Tizimga kirish uchun ma'lumotlaringizni kiriting</p>
+
+    <form id="loginForm">
+      <div class="form-row cols-1">
+        <div class="field">
+          <label for="username">Login</label>
+          <input type="text" id="username" name="username" required autocomplete="username" placeholder="admin" autofocus />
+        </div>
+        <div class="field">
+          <label for="password">Parol</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="••••••••" />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;margin-top:10px;" id="submitBtn">
+        <i class="fa-solid fa-right-to-bracket"></i> Kirish
+      </button>
+      <p id="errorMsg" style="color:#e53935;font-size:0.85rem;margin-top:14px;text-align:center;display:none;"></p>
+    </form>
+
+    <p class="muted" style="text-align:center;margin-top:24px;font-size:0.78rem;">
+      Birinchi marta? <span style="color:var(--pink);font-weight:600;">admin / admin123</span>
+    </p>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const form = document.getElementById('loginForm');
+const errorMsg = document.getElementById('errorMsg');
+const submitBtn = document.getElementById('submitBtn');
+
+if (localStorage.getItem('xfh_admin_token')) {
+  fetch('/api/admin/me', { headers: { Authorization: 'Bearer ' + localStorage.getItem('xfh_admin_token') } })
+    .then(r => { if (r.ok) location.href = './'; });
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errorMsg.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="spinner-inline"></span> Tekshirilmoqda...';
+
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: document.getElementById('username').value.trim(),
+        password: document.getElementById('password').value,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Login xato');
+    localStorage.setItem('xfh_admin_token', data.token);
+    localStorage.setItem('xfh_admin_user', JSON.stringify(data.user));
+    location.href = './';
+  } catch (err) {
+    errorMsg.textContent = err.message;
+    errorMsg.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Kirish';
+  }
+});
+</script>
+</body>
+</html>
