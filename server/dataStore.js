@@ -16,7 +16,14 @@ function useBlobs() {
 
 async function getStore(name) {
   const mod = await import('@netlify/blobs');
-  return mod.getStore(name);
+  const options = blobOptions();
+  return Object.keys(options).length ? mod.getStore(name, options) : mod.getStore(name);
+}
+
+function blobOptions() {
+  const siteID = process.env.XFH_NETLIFY_SITE_ID || process.env.NETLIFY_SITE_ID || process.env.SITE_ID;
+  const token = process.env.XFH_NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_BLOBS_TOKEN;
+  return siteID && token ? { siteID, token } : {};
 }
 
 async function getDataBlobStore() {
