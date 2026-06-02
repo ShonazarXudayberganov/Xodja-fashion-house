@@ -10,6 +10,10 @@ function esc(s) {
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
+function assetSrc(p) {
+  if (!p) return '';
+  return /^https?:\/\//i.test(p) || p.startsWith('/') ? p : '/' + p;
+}
 function setBi(el, uz, ru) {
   if (!el) return;
   if (uz != null) el.dataset.uz = uz;
@@ -143,7 +147,7 @@ function renderHero(data) {
       div.className = 'slide' + (i === 0 ? ' active' : '');
       const altUz = slide.alt_uz || '';
       const altRu = slide.alt_ru || altUz;
-      div.innerHTML = `<img src="${esc(slide.image_path)}" alt="${esc(currentLang === 'ru' ? altRu : altUz)}" data-uz="${esc(altUz)}" data-ru="${esc(altRu)}" width="800" height="1000" ${i === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} decoding="async" />`;
+      div.innerHTML = `<img src="${esc(assetSrc(slide.image_path))}" alt="${esc(currentLang === 'ru' ? altRu : altUz)}" data-uz="${esc(altUz)}" data-ru="${esc(altRu)}" width="800" height="1000" ${i === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} decoding="async" />`;
       slidesContainer.appendChild(div);
 
       const dot = document.createElement('button');
@@ -177,7 +181,7 @@ function renderMarquee(items) {
 /* ============== RENDER: ABOUT ============== */
 function renderAbout(s) {
   const img = $('.about-visual img');
-  if (img && s['about.image_path']) img.src = s['about.image_path'];
+  if (img && s['about.image_path']) img.src = assetSrc(s['about.image_path']);
 
   setBi($('#about .section-eyebrow'), s['about.eyebrow_uz'], s['about.eyebrow_ru']);
   setBi($('#aboutTitle'), s['about.title_uz'], s['about.title_ru']);
@@ -254,7 +258,7 @@ function renderCatalog(data) {
         <div class="product-image">
           <span class="cat-tag" data-uz="${esc(p.cat_short_uz || '')}" data-ru="${esc(p.cat_short_ru || p.cat_short_uz || '')}">${esc(currentLang === 'ru' ? (p.cat_short_ru || p.cat_short_uz) : p.cat_short_uz)}</span>
           ${badge}
-          <img src="${esc(p.image_path || '')}" alt="${esc(currentLang === 'ru' ? altRu : altUz)}" data-uz="${esc(altUz)}" data-ru="${esc(altRu)}" width="600" height="750" loading="lazy" decoding="async" />
+          <img src="${esc(assetSrc(p.image_path))}" alt="${esc(currentLang === 'ru' ? altRu : altUz)}" data-uz="${esc(altUz)}" data-ru="${esc(altRu)}" width="600" height="750" loading="lazy" decoding="async" />
         </div>
         <div class="product-body">
           <div class="product-name" data-uz="${esc(p.name_uz || '')}" data-ru="${esc(p.name_ru || p.name_uz || '')}">${esc(currentLang === 'ru' ? (p.name_ru || p.name_uz) : p.name_uz)}</div>

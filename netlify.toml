@@ -1,0 +1,47 @@
+[build]
+  command = "npm run build"
+  publish = "public"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = [
+    "@netlify/blobs",
+    "bcryptjs",
+    "cookie-parser",
+    "express",
+    "jsonwebtoken",
+    "multer",
+    "serverless-http"
+  ]
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

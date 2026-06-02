@@ -11,6 +11,10 @@ function esc(s) {
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 const jp = (o) => JSON.stringify(o).replace(/'/g, '&#39;').replace(/&(?!#?\w+;)/g, '&amp;');
+const imgSrc = (p) => {
+  if (!p) return '';
+  return /^https?:\/\//i.test(p) || p.startsWith('/') ? p : '/' + p;
+};
 
 /* ============== API ============== */
 async function api(method, path, body, isFormData = false) {
@@ -283,7 +287,7 @@ async function renderSlides() {
   }
   tbody.innerHTML = list.map(s => `
     <tr>
-      <td><img class="thumb" src="/${esc(s.image_path)}" alt="" /></td>
+      <td><img class="thumb" src="${esc(imgSrc(s.image_path))}" alt="" /></td>
       <td>${esc(s.alt_uz || '')}</td>
       <td>${esc(s.alt_ru || '')}</td>
       <td>${s.sort_order}</td>
@@ -300,7 +304,7 @@ window.openSlideEditor = function(slide = {}) {
       <div class="field">
         <label>Rasm</label>
         <div id="slideImgPreview" style="margin-bottom:8px;">
-          ${slide.image_path ? `<img class="img-preview" src="/${esc(slide.image_path)}" />` : ''}
+          ${slide.image_path ? `<img class="img-preview" src="${esc(imgSrc(slide.image_path))}" />` : ''}
         </div>
         <div class="row-flex">
           <input id="slideImagePath" value="${esc(slide.image_path || '')}" placeholder="images/example.jpg" style="flex:1;" />
@@ -354,7 +358,7 @@ window.uploadModalImage = async function(input, targetId, previewId) {
   try {
     const r = await api('POST', '/api/admin/upload', fd, true);
     $('#' + targetId).value = r.path;
-    if (previewId) $('#' + previewId).innerHTML = `<img class="img-preview" src="/${esc(r.path)}" />`;
+    if (previewId) $('#' + previewId).innerHTML = `<img class="img-preview" src="${esc(imgSrc(r.path))}" />`;
     toast('✓ Yuklandi');
   } catch (err) { toast(err.message, 'error'); }
 };
@@ -465,7 +469,7 @@ async function loadProducts() {
   CATEGORIES_CACHE.forEach(c => catMap[c.id] = c.name_uz);
   tbody.innerHTML = list.map(p => `
     <tr>
-      <td>${p.image_path ? `<img class="thumb" src="/${esc(p.image_path)}" />` : '—'}</td>
+      <td>${p.image_path ? `<img class="thumb" src="${esc(imgSrc(p.image_path))}" />` : '—'}</td>
       <td>${esc(p.name_uz)}</td>
       <td>${esc(catMap[p.category_id] || '—')}</td>
       <td>${p.price_ask ? '<i class="muted">So\'rang</i>' : esc(p.price || '—')}</td>
@@ -491,7 +495,7 @@ window.openProductEditor = function(p = {}) {
     <div class="form-row">
       <div class="field full">
         <label>Rasm</label>
-        <div id="prodImgPreview" style="margin-bottom:8px;">${p.image_path ? `<img class="img-preview" src="/${esc(p.image_path)}" />` : ''}</div>
+        <div id="prodImgPreview" style="margin-bottom:8px;">${p.image_path ? `<img class="img-preview" src="${esc(imgSrc(p.image_path))}" />` : ''}</div>
         <div class="row-flex">
           <input id="prodImagePath" value="${esc(p.image_path || '')}" placeholder="images/..." style="flex:1;" />
           <button type="button" class="btn btn-outline btn-sm" onclick="document.getElementById('prodImageFile').click()"><i class="fa-solid fa-upload"></i> Yuklash</button>

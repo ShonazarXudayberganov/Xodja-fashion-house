@@ -5,6 +5,7 @@ node_modules/
 server/data.db
 server/data.db-shm
 server/data.db-wal
+server/data.json
 
 # Environment & secrets
 .env
@@ -25,3 +26,7 @@ Thumbs.db
 
 # Claude / local tooling
 .claude/
+
+# Local Netlify folder
+.netlify
+deno.lock

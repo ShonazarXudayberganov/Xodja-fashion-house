@@ -2,5 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-# Sitemap (deploy paytida o'z domeningizni qo'ying)
-# Sitemap: https://xodija-fashion.uz/sitemap.xml
+Sitemap: https://xodija.uz/sitemap.xml

@@ -1,101 +1,86 @@
-# Xodija Fashion House — Prod Deploy Yo'riqnomasi
+# Xodija Fashion House
 
-Saytni internetga chiqarish uchun quyidagi 3 qadamni bajaring.
+Express API, statik frontend va admin paneldan iborat sayt. Loyiha Netlify deployga moslangan:
 
-## 1. Rasmlarni qo'shish
+- statik sayt: `public/`
+- API va admin backend: `netlify/functions/api.js`
+- persistent data va rasm upload: Netlify Blobs
+- local development data: `server/data.json`
 
-`images/` papkasiga quyidagi fayllarni qo'ying (JPG/WebP, optimallashtirilgan, ~150-300 KB):
+## Local ishga tushirish
 
-| Fayl nomi | O'lcham | Tavsif |
-|-----------|---------|--------|
-| `hero-1.jpg` | 800×1000 | Hero slider — 1-rasm (LCP, eng muhim) |
-| `hero-2.jpg` | 800×1000 | Hero slider — 2-rasm |
-| `hero-3.jpg` | 800×1000 | Hero slider — 3-rasm |
-| `hero-4.jpg` | 800×1000 | Hero slider — 4-rasm |
-| `about-designer.jpg` | 800×1000 | Dizayner ish jarayonida |
-| `og-cover.jpg` | 1200×630 | Open Graph (ijtimoiy tarmoqlar preview) |
-| `apple-touch-icon.png` | 180×180 | iOS home screen ikonkasi |
-| `icon-192.png` | 192×192 | PWA ikonkasi |
-| `icon-512.png` | 512×512 | PWA ikonkasi (yuqori sifat) |
-| `product-evening-zulfiya.jpg` | 600×750 | Oqshom libos «Zulfiya» |
-| `product-evening-malika.jpg` | 600×750 | Oqshom libos «Malika» |
-| `product-ensemble-set.jpg` | 600×750 | Ansabil to'plami |
-| `product-ensemble-summer.jpg` | 600×750 | Ansabil yozgi |
-| `product-daily-dress.jpg` | 600×750 | Kundalik ko'ylak |
-| `product-daily-set.jpg` | 600×750 | Kundalik to'plam |
-| `product-bridal-classic.jpg` | 600×750 | Kelin sarposi klassik |
-| `product-bridal-modern.jpg` | 600×750 | Kelin sarposi zamonaviy |
-| `product-tiara-gulnora.jpg` | 600×750 | Diodema «Gulnora» |
-| `product-tiara-shahzoda.jpg` | 600×750 | Diodema «Shahzoda» |
-
-**Tavsiya:** rasmlarni [tinypng.com](https://tinypng.com) yoki [squoosh.app](https://squoosh.app) orqali siqing.
-
-## 2. Telegram Bot sozlash (forma uchun)
-
-1. Telegramda **@BotFather**'ga yozing → `/newbot` → bot nomi va username bering
-2. Olingan **bot token**ni saqlang (masalan: `7123456789:AAH...xyz`)
-3. **@userinfobot**'ga yozib, o'z **chat_id**'ingizni oling (masalan: `987654321`)
-4. Yaratgan botingizga **/start** bosing (bot sizga yoza olishi uchun)
-5. [`script.js`](script.js) faylining 1-bo'limida `CONFIG`'ni to'ldiring:
-
-```js
-const CONFIG = {
-  TELEGRAM_BOT_TOKEN: '7123456789:AAH...xyz',  // ← bu yerga
-  TELEGRAM_CHAT_ID: '987654321',                // ← bu yerga
-  TELEGRAM_FALLBACK_USERNAME: 'xodija_fashion',
-};
+```bash
+npm install
+npm run seed
+npm start
 ```
 
-> **Diqqat:** bot token ochiq HTML/JS'da turadi — bu sodda variant. Yuqori xavfsizlik kerak bo'lsa, kichik backend (Cloudflare Worker, Vercel Function) yarating va tokenni o'sha yerda saqlang.
+Sayt: `http://localhost:3000/`
 
-## 3. Domen va deploy
+Admin: `http://localhost:3000/admin/`
 
-Domen tanlangach, quyidagi joylarni yangilang:
+Default login: `admin / admin123`
 
-| Fayl | Qator | O'zgartirish |
-|------|-------|--------------|
-| [`index.html`](index.html) | `<link rel="canonical">` qo'shing | `<link rel="canonical" href="https://SIZNING-DOMEN.uz/" />` |
-| [`index.html`](index.html) | `og:url` qo'shing | `<meta property="og:url" content="https://SIZNING-DOMEN.uz/" />` |
-| [`robots.txt`](robots.txt) | Sitemap qatori | Komment olib tashlang va domenni yozing |
-| [`sitemap.xml`](sitemap.xml) | Hamma `<loc>` | `xodija-fashion.uz` → o'z domeningiz |
+Production deploydan keyin admin panelga kirib parolni darhol almashtiring.
 
-### Hosting variantlari (bepul)
+## Netlify deploy
 
-- **Netlify** — drag-and-drop / GitHub
-- **Vercel** — GitHub integratsiya
-- **Cloudflare Pages** — eng tezkor CDN
-- **GitHub Pages** — eng oddiy
+Netlify build sozlamalari `netlify.toml` ichida tayyor:
 
-### Server konfiguratsiya tavsiyalari
+- Build command: `npm run build`
+- Publish directory: `public`
+- Functions directory: `netlify/functions`
+- Node version: `22`
+- API rewrite: `/api/* -> /.netlify/functions/api/:splat`
 
-`_headers` (Netlify) yoki `vercel.json` orqali:
+Netlify environment variables:
 
-```
-/*
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Cache-Control: public, max-age=3600
-
-/images/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.css
-  Cache-Control: public, max-age=31536000, immutable
-
-/*.js
-  Cache-Control: public, max-age=31536000, immutable
+```text
+JWT_SECRET=kamida-32-belgili-maxfiy-random-string
 ```
 
-## Tekshirish ro'yxati (deploy oldidan)
+Optional environment variables:
 
-- [ ] `images/` papkadagi barcha rasmlar joylashtirilgan
-- [ ] `script.js` ichida `TELEGRAM_BOT_TOKEN` va `TELEGRAM_CHAT_ID` to'ldirilgan
-- [ ] Telegram bot `/start` bosilgan
-- [ ] Forma orqali test buyurtma yuborilgan
-- [ ] UZ ↔ RU til almashtirish ishlayapti
-- [ ] Mobil va desktopda test qilingan
-- [ ] [PageSpeed Insights](https://pagespeed.web.dev) — 90+ ball
-- [ ] [Google Search Console](https://search.google.com/search-console) sitemap.xml qo'shilgan
+```text
+XFH_BLOBS_DATA_STORE=xfh-data
+XFH_BLOBS_UPLOAD_STORE=xfh-uploads
+XFH_DATA_KEY=site-data.json
+```
+
+`JWT_SECRET` qo'yilmasa, development fallback ishlaydi, lekin production uchun bu xavfsiz emas.
+
+## Ma'lumot va rasmlar
+
+Localda ma'lumotlar `server/data.json`ga yoziladi. Bu fayl `.gitignore`da.
+
+Netlify'da ma'lumotlar va admin upload qilgan rasmlar Netlify Blobs ichida saqlanadi. Admin paneldagi rasm yuklash tugmalari o'zgarmaydi:
+
+- local: rasm `public/images/`ga yoziladi va `images/...` path qaytadi
+- Netlify: rasm Blobs'ga yoziladi va `/api/uploads/...` path qaytadi
+
+Sayt ikkala holatda ham shu path orqali rasmni ko'rsatadi.
+
+## Tekshirish
+
+```bash
+npm run build
+npm audit --omit=dev
+netlify dev --offline
+```
+
+`netlify dev` ochilgach:
+
+- `http://localhost:8888/`
+- `http://localhost:8888/api/site`
+- `http://localhost:8888/admin/`
+
+## Deploydan keyingi checklist
+
+- Netlify'da `JWT_SECRET` qo'yilgan
+- Admin parol `admin123`dan boshqasiga almashtirilgan
+- Brand va kontaktlar admin paneldan tekshirilgan
+- Telegram bot token va chat ID admin paneldan kiritilgan va test qilingan
+- Forma orqali test buyurtma yuborilgan
+- Admin paneldan rasm yuklab, rasm saytda ko'rinishi tekshirilgan
+- `robots.txt` va `sitemap.xml` ichidagi domen production domeniga almashtirilgan
+- `manifest.json` icon fayllari qo'shilgan yoki manifest icon pathlari yangilangan
