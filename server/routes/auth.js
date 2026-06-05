@@ -5,8 +5,44 @@ const { signToken, requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
 
+const loginAttempts = new Map();
+const LOGIN_WINDOW_MS = 15 * 60 * 1000;
+const LOGIN_MAX_ATTEMPTS = 8;
+
+function getClientIp(req) {
+  const fwd = req.headers['x-forwarded-for'];
+  if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
+  return req.ip || req.connection?.remoteAddress || 'unknown';
+}
+
+function checkLoginRate(ip) {
+  const now = Date.now();
+  const entry = loginAttempts.get(ip);
+  if (!entry || now - entry.firstAt > LOGIN_WINDOW_MS) {
+    loginAttempts.set(ip, { count: 1, firstAt: now });
+    return { ok: true };
+  }
+  entry.count += 1;
+  if (entry.count > LOGIN_MAX_ATTEMPTS) {
+    const retryMs = LOGIN_WINDOW_MS - (now - entry.firstAt);
+    return { ok: false, retryMs };
+  }
+  return { ok: true };
+}
+
+function resetLoginRate(ip) {
+  loginAttempts.delete(ip);
+}
+
 router.post('/login', async (req, res, next) => {
   try {
+    const ip = getClientIp(req);
+    const rate = checkLoginRate(ip);
+    if (!rate.ok) {
+      const mins = Math.ceil(rate.retryMs / 60000);
+      return res.status(429).json({ error: `Juda ko'p urinish. ${mins} daqiqadan keyin qayta urinib ko'ring.` });
+    }
+
     const { username, password } = req.body || {};
     if (!username || !password) {
       return res.status(400).json({ error: 'Login va parol kerak' });
@@ -18,6 +54,7 @@ router.post('/login', async (req, res, next) => {
     const ok = bcrypt.compareSync(password, user.password_hash);
     if (!ok) return res.status(401).json({ error: 'Login yoki parol noto\'g\'ri' });
 
+    resetLoginRate(ip);
     const token = signToken({ id: user.id, username: user.username });
     res.json({ token, user: { id: user.id, username: user.username } });
   } catch (err) {
