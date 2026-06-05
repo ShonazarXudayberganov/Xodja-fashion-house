@@ -50,18 +50,21 @@ router.post('/orders', async (req, res, next) => {
         `👗 <b>Kategoriya:</b> ${escapeHtml(safeCategory)}` +
         (safeNote ? `\n📝 <b>Izoh:</b> ${escapeHtml(safeNote)}` : '');
 
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML', disable_web_page_preview: true }),
-      }).then(async r => {
+      try {
+        const r = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML', disable_web_page_preview: true }),
+        });
         const j = await r.json().catch(() => ({}));
         if (!j.ok) {
           console.error(`[Telegram] Order #${order.id} send failed:`, j.description || ('HTTP ' + r.status));
         } else {
           console.log(`[Telegram] Order #${order.id} sent OK`);
         }
-      }).catch(err => console.error('[Telegram] Network error:', err.message));
+      } catch (err) {
+        console.error('[Telegram] Network error:', err.message);
+      }
     }
 
     res.json({ ok: true, id: order.id });
