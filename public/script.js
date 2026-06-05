@@ -355,13 +355,15 @@ function renderContact(s) {
   const zoom = parseInt(s['contact.map_zoom'], 10) || 17;
   const frame = $('#contactMapFrame');
   if (frame) {
-    const src = `https://yandex.uz/map-widget/v1/?ll=${lng}%2C${lat}&z=${zoom}&pt=${lng}%2C${lat}%2Cpm2rdm&l=map`;
+    const customEmbed = (s['contact.map_embed_url'] || '').trim();
+    const src = customEmbed ||
+      `https://yandex.uz/map-widget/v1/?ll=${lng}%2C${lat}&z=${zoom}&l=map%2Cskl&pt=${lng}%2C${lat}%2Cpm2rdm`;
     if (frame.getAttribute('src') !== src) frame.setAttribute('src', src);
   }
 
   const directions = $('#contactDirections');
   if (directions) {
-    const url = s['contact.directions_url'] || `https://yandex.uz/maps/?rtext=~${lat},${lng}&rtt=auto`;
+    const url = s['contact.directions_url'] || `https://yandex.uz/maps/?rtext=~${lat}%2C${lng}&rtt=auto`;
     directions.setAttribute('href', url);
   }
 }

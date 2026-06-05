@@ -103,6 +103,7 @@ function makeDefaultData() {
     'contact.map_lat': '41.376407',
     'contact.map_lng': '60.385525',
     'contact.map_zoom': '17',
+    'contact.map_embed_url': '',
     'contact.directions_url': 'https://yandex.uz/maps/-/CPXcIVjj',
 
     'order.eyebrow_uz': 'Buyurtma',

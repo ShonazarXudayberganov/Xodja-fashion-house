@@ -573,14 +573,27 @@
         </div>
 
         <div class="card-title" style="margin-top:24px;">Yandex xarita</div>
-        <div class="card-sub">Xaritada qaysi nuqta ko'rsatilishi. Koordinatalarni <a href="https://yandex.uz/maps" target="_blank" style="color:var(--pink);font-weight:600;">yandex.uz/maps</a> dan oling: manzilga sichqonchani bosing, pastdagi raqamlar lat va lng.</div>
+        <div class="card-sub">
+          <strong>2 yo'l bor:</strong><br>
+          <strong>A) Tezroq</strong> — pastda <strong>latitude/longitude</strong> kiriting. Saytda avtomatik xarita yasaladi.<br>
+          <strong>B) Aniqroq</strong> — <a href="https://yandex.uz/map-constructor" target="_blank" style="color:var(--pink);font-weight:600;">yandex.uz/map-constructor</a> da chiroyli xarita yarating (label qo'ying, rangini sozlang) → <strong>"Получить код карты"</strong> → iframe ichidagi <code style="background:var(--pink-soft);padding:2px 5px;border-radius:4px;">src="..."</code> URL'ini quyidagi "Embed URL" maydoniga yopishtiring. Saytda shu xarita aynan ko'rinadi.
+        </div>
+
+        <div class="form-row">
+          <div class="field full">
+            <label>Embed URL (to'liq Yandex map-widget URL'i)</label>
+            <input name="contact.map_embed_url" placeholder="https://yandex.uz/map-widget/v1/?um=constructor%3A...&source=constructor" />
+            <div class="field-hint">Bo'sh qoldirilsa — pastdagi koordinatalardan avtomatik yasaladi. To'ldirilsa — pastdagi 3 maydon e'tiborga olinmaydi.</div>
+          </div>
+        </div>
+
         <div class="form-row cols-3">
           <div class="field"><label>Latitude (kenglik)</label><input name="contact.map_lat" placeholder="41.376407" /><div class="field-hint">Misol: <span class="field-example">41.376407</span></div></div>
           <div class="field"><label>Longitude (uzunlik)</label><input name="contact.map_lng" placeholder="60.385525" /><div class="field-hint">Misol: <span class="field-example">60.385525</span></div></div>
           <div class="field"><label>Zoom (yaqinlik)</label><input name="contact.map_zoom" placeholder="17" type="number" min="1" max="19" /><div class="field-hint">1 = uzoq, 19 = juda yaqin</div></div>
         </div>
         <div class="form-row">
-          <div class="field full"><label>"Yo'l ko'rsatma" tugma havolasi</label><input name="contact.directions_url" placeholder="https://yandex.uz/maps/-/CPXcIVjj" /><div class="field-hint">Bosilganda Yandex Navi yoki xarita ochiladi. Bo'sh qoldirilsa, koordinatalardan avtomatik yasaladi.</div></div>
+          <div class="field full"><label>"Yo'l ko'rsatma" tugma havolasi</label><input name="contact.directions_url" placeholder="https://yandex.uz/maps/-/CPXcIVjj" /><div class="field-hint">Bosilganda Yandex xarita yo'l ko'rsatma rejimida ochiladi. Bo'sh qoldirilsa, koordinatalardan avtomatik yasaladi.</div></div>
         </div>
 
         <div class="btn-bar"><button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Saqlash</button></div>
