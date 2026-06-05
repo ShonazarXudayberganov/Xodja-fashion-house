@@ -336,6 +336,36 @@ function startInfiniteScroll(el, duration) {
   return anim;
 }
 
+/* ============== RENDER: CONTACT ============== */
+function renderContact(s) {
+  setBi($('#contact .section-eyebrow'), s['contact.eyebrow_uz'], s['contact.eyebrow_ru']);
+  setBi($('#contactTitle'), s['contact.title_uz'], s['contact.title_ru']);
+  setBi($('#contact .section-sub'), s['contact.subtitle_uz'], s['contact.subtitle_ru']);
+
+  setBi($('.contact-address'), s['contact.address_uz'], s['contact.address_ru']);
+  setBi($('.contact-address-detail'), s['contact.address_detail_uz'], s['contact.address_detail_ru']);
+  setBi($('.contact-hours'), s['contact.hours_uz'], s['contact.hours_ru']);
+  setBi($('.contact-hours-extra'), s['contact.hours_extra_uz'], s['contact.hours_extra_ru']);
+
+  const hoursH4 = $('#contact .contact-card:nth-of-type(2) h4');
+  setBi(hoursH4, s['contact.hours_label_uz'], s['contact.hours_label_ru']);
+
+  const lat = parseFloat(s['contact.map_lat']) || 41.376407;
+  const lng = parseFloat(s['contact.map_lng']) || 60.385525;
+  const zoom = parseInt(s['contact.map_zoom'], 10) || 17;
+  const frame = $('#contactMapFrame');
+  if (frame) {
+    const src = `https://yandex.uz/map-widget/v1/?ll=${lng}%2C${lat}&z=${zoom}&pt=${lng}%2C${lat}%2Cpm2rdm&l=map`;
+    if (frame.getAttribute('src') !== src) frame.setAttribute('src', src);
+  }
+
+  const directions = $('#contactDirections');
+  if (directions) {
+    const url = s['contact.directions_url'] || `https://yandex.uz/maps/?rtext=~${lat},${lng}&rtt=auto`;
+    directions.setAttribute('href', url);
+  }
+}
+
 /* ============== RENDER: ORDER FORM ============== */
 function renderOrderForm(categories) {
   if (SITE) {
@@ -692,6 +722,7 @@ async function boot() {
   renderAbout(SITE.settings);
   renderCatalog(SITE);
   renderTestimonials(SITE.testimonials);
+  renderContact(SITE.settings);
   renderOrderForm(SITE.categories);
   renderFooter(SITE.settings);
 

@@ -82,6 +82,7 @@ const VIEWS = {
   categories: { title: 'Kategoriyalar', sub: 'Mahsulot kategoriyalari', load: loadCategories },
   products: { title: 'Mahsulotlar', sub: 'Katalog mahsulotlari', load: loadProducts },
   testimonials: { title: 'Sharhlar', sub: 'Mijoz sharhlari', load: loadTestimonials },
+  contact: { title: 'Manzil & Xarita', sub: 'Bog\'lanish bo\'limi va Yandex xarita', load: loadContact },
   orders: { title: 'Buyurtmalar', sub: 'Saytdan kelgan zakazlar', load: loadOrders },
   account: { title: 'Sozlamalar', sub: 'Parol va boshqa', load: () => {} },
 };
@@ -169,6 +170,12 @@ bindSettingsForm('seoForm');
 bindSettingsForm('heroForm');
 bindSettingsForm('aboutForm');
 bindSettingsForm('sectionsForm');
+bindSettingsForm('contactForm');
+
+async function loadContact() {
+  const s = await loadSettings();
+  fillForm($('#contactForm'), s);
+}
 
 /* ============== DASHBOARD ============== */
 async function loadDashboard() {
